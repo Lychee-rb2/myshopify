@@ -1,7 +1,6 @@
 import type { LoaderArgs } from '@remix-run/server-runtime'
 import { json } from '@remix-run/server-runtime'
 import { useLoaderData } from '@remix-run/react'
-import { useEffect } from 'react'
 
 export const loader = async (args: LoaderArgs) => {
   return json({
@@ -11,9 +10,6 @@ export const loader = async (args: LoaderArgs) => {
 }
 export default function Index() {
   const { shopify, contentful } = useLoaderData<typeof loader>()
-  useEffect(() => {
-    console.log(shopify)
-  }, [])
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
