@@ -3,7 +3,7 @@ const _serverBuildTarget =
     ? undefined
     : process.env.SERVER_BUILD_TARGET
 
-const serverBuildTarget = ["vercel"].includes(_serverBuildTarget) ? process.env.SERVER_BUILD_TARGET : undefined
+const serverBuildTarget = ["vercel"].includes(_serverBuildTarget) ? _serverBuildTarget : undefined
 
 const serverMap = {
   vercel: "./server.vercel.ts"
