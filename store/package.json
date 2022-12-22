@@ -10,6 +10,7 @@
     "typecheck": "tsc -b",
     "codegen": "run-p \"codegen:*\"",
     "codegen:shopify": "graphql-codegen-esm --config app/shopify/codegen.yml && eslint app/shopify/generated.ts --fix",
+    "lint": "eslint ./app",
     "codegen:contentful": "graphql-codegen-esm --config app/contentful/codegen.yml && eslint app/contentful/generated.ts --fix"
   },
   "dependencies": {
