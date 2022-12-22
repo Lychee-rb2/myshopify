@@ -8,7 +8,9 @@
     "dev:remix": "remix watch",
     "start": "cross-env NODE_ENV=production node server.ts",
     "typecheck": "tsc -b",
-    "codegen": "graphql-codegen-esm --config app/shopify/codegen.yml && eslint app/shopify/generated.ts --fix"
+    "codegen": "run-p \"codegen:*\"",
+    "codegen:shopify": "graphql-codegen-esm --config app/shopify/codegen.yml && eslint app/shopify/generated.ts --fix",
+    "codegen:contentful": "graphql-codegen-esm --config app/contentful/codegen.yml && eslint app/contentful/generated.ts --fix"
   },
   "dependencies": {
     "@remix-run/express": "^1.9.0",

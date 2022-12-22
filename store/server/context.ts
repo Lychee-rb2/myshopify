@@ -1,5 +1,7 @@
 import { shopifyAPI } from '~/shopify/client'
+import { contentfulAPI } from '~/contentful/client'
 
 export const getContext = () => ({
-  shopify: shopifyAPI()
+  shopify: shopifyAPI(),
+  contentful: contentfulAPI()
 })

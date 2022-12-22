@@ -1,0 +1,9 @@
+query GlobalCollection{
+    globalCollection(limit:1){
+        items {
+            icon {
+                url
+            }
+        }
+    }
+}

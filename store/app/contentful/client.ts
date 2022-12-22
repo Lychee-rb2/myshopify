@@ -6,9 +6,9 @@ import { GraphQLClient } from 'graphql-request'
 
 const requestHeaders = async () => {
   const headers = new Headers();
-  const SHOPIFY_TOKEN = process.env.SHOPIFY_TOKEN
-  if (!SHOPIFY_TOKEN) throw new Error('SHOPIFY_TOKEN is missing')
-  headers.set("X-Shopify-Storefront-Access-Token", SHOPIFY_TOKEN);
+  const CONTENTFUL_TOKEN = process.env.CONTENTFUL_TOKEN
+  if (!CONTENTFUL_TOKEN) throw new Error('CONTENTFUL_TOKEN is missing')
+  headers.set("Authorization", `Bearer ${CONTENTFUL_TOKEN}`);
   return headers;
 };
 export const createClientBase = async (
@@ -28,11 +28,11 @@ export const createClientBase = async (
     })
   );
 };
-export const shopifyAPI = () => {
-  const SHOPIFY_ENDPOINT = process.env.SHOPIFY_ENDPOINT
-  if (!SHOPIFY_ENDPOINT) throw new Error('SHOPIFY_ENDPOINT is missing')
+export const contentfulAPI = () => {
+  const CONTENTFUL_ENDPOINT = process.env.CONTENTFUL_ENDPOINT
+  if (!CONTENTFUL_ENDPOINT) throw new Error('CONTENTFUL_ENDPOINT is missing')
   const client = createClientBase(
-    SHOPIFY_ENDPOINT,
+    CONTENTFUL_ENDPOINT,
     requestHeaders,
     {
       error: console.error,
@@ -41,7 +41,8 @@ export const shopifyAPI = () => {
   )
   return new Proxy<Sdk>({} as Sdk, {
     get: (target, prop, receiver) => (...args: any) =>
-      client.then((client) => Reflect.get(client, prop, receiver)(...args)
+      client.then((client) =>
+        Reflect.get(client, prop, receiver)(...args)
       ),
   })
 }

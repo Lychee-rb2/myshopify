@@ -1,10 +1,10 @@
 schema:
-  - "./app/shopify/schema.graphql"
-documents: app/shopify/**/*gql
+  - "./app/contentful/schema.graphql"
+documents: app/contentful/**/*gql
 emitLegacyCommonJSImports: false
 config: { }
 generates:
-  app/shopify/generated.ts:
+  app/contentful/generated.ts:
     plugins:
       - typescript
       - typescript-operations
@@ -12,11 +12,8 @@ generates:
       - typescript-graphql-request
     config:
       scalars:
-        Decimal: number
-        Long: number
+        Dimension: number
+        Quality: number
+        HexColor: string
         DateTime: string
-        Color: string
-        HTML: string
-        URL: string
-        UnsignedInt64: number
 

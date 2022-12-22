@@ -3,14 +3,18 @@ import { json } from '@remix-run/server-runtime'
 import { useLoaderData } from '@remix-run/react'
 
 export const loader = async (args: LoaderArgs) => {
-  return json({ data: await args.context.shopify.products() })
+  return json({
+    shopify: await args.context.shopify.products(),
+    contentful: await args.context.contentful.GlobalCollection()
+  })
 }
 export default function Index() {
-  const { data } = useLoaderData<typeof loader>()
+  const { shopify, contentful } = useLoaderData<typeof loader>()
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
-      {JSON.stringify(data)}
+      {JSON.stringify(shopify)}
+      {JSON.stringify(contentful)}
       <ul>
         <li>
           <a
