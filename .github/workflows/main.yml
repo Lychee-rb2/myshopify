@@ -105,7 +105,6 @@ jobs:
       - name: Build storefront
         run: pnpm build
         env:
-          SERVER_BUILD_TARGET: 'vercel'
           SHOPIFY_ENDPOINT: ${{ secrets.SHOPIFY_ENDPOINT}}
           SHOPIFY_TOKEN: ${{ secrets.SHOPIFY_TOKEN}}
           CONTENTFUL_ENDPOINT: ${{ secrets.CONTENTFUL_ENDPOINT}}
