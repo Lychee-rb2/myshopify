@@ -1,6 +1,12 @@
-query GlobalCollection{
-    globalCollection(limit:1){
+query GlobalCollection {
+    globalCollection(limit: 1) {
         items {
+            title
+            menuCollection(limit:10) {
+                items {
+                    title
+                }
+            }
             icon {
                 url
             }

@@ -262,7 +262,9 @@ export type Global = Entry & {
   contentfulMetadata: ContentfulMetadata;
   icon?: Maybe<Asset>;
   linkedFrom?: Maybe<GlobalLinkingCollections>;
+  menuCollection?: Maybe<GlobalMenuCollection>;
   sys: Sys;
+  title?: Maybe<Scalars['String']>;
 };
 
 
@@ -274,6 +276,19 @@ export type GlobalIconArgs = {
 
 export type GlobalLinkedFromArgs = {
   allowedLocales?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+
+export type GlobalMenuCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type GlobalTitleArgs = {
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type GlobalCollection = {
@@ -289,7 +304,15 @@ export type GlobalFilter = {
   OR?: InputMaybe<Array<InputMaybe<GlobalFilter>>>;
   contentfulMetadata?: InputMaybe<ContentfulMetadataFilter>;
   icon_exists?: InputMaybe<Scalars['Boolean']>;
+  menuCollection_exists?: InputMaybe<Scalars['Boolean']>;
   sys?: InputMaybe<SysFilter>;
+  title?: InputMaybe<Scalars['String']>;
+  title_contains?: InputMaybe<Scalars['String']>;
+  title_exists?: InputMaybe<Scalars['Boolean']>;
+  title_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+  title_not?: InputMaybe<Scalars['String']>;
+  title_not_contains?: InputMaybe<Scalars['String']>;
+  title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
 export type GlobalLinkingCollections = {
@@ -305,6 +328,14 @@ export type GlobalLinkingCollectionsEntryCollectionArgs = {
   skip?: InputMaybe<Scalars['Int']>;
 };
 
+export type GlobalMenuCollection = {
+  __typename?: 'GlobalMenuCollection';
+  items: Array<Maybe<Page>>;
+  limit: Scalars['Int'];
+  skip: Scalars['Int'];
+  total: Scalars['Int'];
+};
+
 export enum GlobalOrder {
   SysFirstPublishedAtAsc = 'sys_firstPublishedAt_ASC',
   SysFirstPublishedAtDesc = 'sys_firstPublishedAt_DESC',
@@ -313,7 +344,9 @@ export enum GlobalOrder {
   SysPublishedAtAsc = 'sys_publishedAt_ASC',
   SysPublishedAtDesc = 'sys_publishedAt_DESC',
   SysPublishedVersionAsc = 'sys_publishedVersion_ASC',
-  SysPublishedVersionDesc = 'sys_publishedVersion_DESC'
+  SysPublishedVersionDesc = 'sys_publishedVersion_DESC',
+  TitleAsc = 'title_ASC',
+  TitleDesc = 'title_DESC'
 }
 
 export enum ImageFormat {
@@ -402,10 +435,19 @@ export type PageFilter = {
 export type PageLinkingCollections = {
   __typename?: 'PageLinkingCollections';
   entryCollection?: Maybe<EntryCollection>;
+  globalCollection?: Maybe<GlobalCollection>;
 };
 
 
 export type PageLinkingCollectionsEntryCollectionArgs = {
+  limit?: InputMaybe<Scalars['Int']>;
+  locale?: InputMaybe<Scalars['String']>;
+  preview?: InputMaybe<Scalars['Boolean']>;
+  skip?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type PageLinkingCollectionsGlobalCollectionArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   locale?: InputMaybe<Scalars['String']>;
   preview?: InputMaybe<Scalars['Boolean']>;
@@ -547,7 +589,7 @@ export type SysFilter = {
 export type GlobalCollectionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GlobalCollectionQuery = { __typename?: 'Query', globalCollection?: { __typename?: 'GlobalCollection', items: Array<{ __typename?: 'Global', icon?: { __typename?: 'Asset', url?: string | null } | null } | null> } | null };
+export type GlobalCollectionQuery = { __typename?: 'Query', globalCollection?: { __typename?: 'GlobalCollection', items: Array<{ __typename?: 'Global', title?: string | null, menuCollection?: { __typename?: 'GlobalMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null } | null> } | null, icon?: { __typename?: 'Asset', url?: string | null } | null } | null> } | null };
 
 
 /**
@@ -571,6 +613,12 @@ export const GlobalCollectionDocument = gql`
     query GlobalCollection {
   globalCollection(limit: 1) {
     items {
+      title
+      menuCollection(limit: 10) {
+        items {
+          title
+        }
+      }
       icon {
         url
       }
