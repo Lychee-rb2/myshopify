@@ -235,6 +235,13 @@ type Global implements Entry {
   contentfulMetadata: ContentfulMetadata!
   linkedFrom(allowedLocales: [String]): GlobalLinkingCollections
   icon(preview: Boolean, locale: String): Asset
+  menuCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): GlobalMenuCollection
+  title(locale: String): String
 }
 
 type GlobalLinkingCollections {
@@ -244,6 +251,36 @@ type GlobalLinkingCollections {
     preview: Boolean
     locale: String
   ): EntryCollection
+}
+
+type GlobalMenuCollection {
+  total: Int!
+  skip: Int!
+  limit: Int!
+  items: [Page]!
+}
+
+# [See type definition](https://app.contentful.com/spaces/lvc7wgiuntle/content_types/page)
+type Page implements Entry {
+  sys: Sys!
+  contentfulMetadata: ContentfulMetadata!
+  linkedFrom(allowedLocales: [String]): PageLinkingCollections
+  title(locale: String): String
+}
+
+type PageLinkingCollections {
+  entryCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): EntryCollection
+  globalCollection(
+    skip: Int = 0
+    limit: Int = 100
+    preview: Boolean
+    locale: String
+  ): GlobalCollection
 }
 
 type AssetCollection {
@@ -397,11 +434,21 @@ input GlobalFilter {
   sys: SysFilter
   contentfulMetadata: ContentfulMetadataFilter
   icon_exists: Boolean
+  menuCollection_exists: Boolean
+  title_exists: Boolean
+  title: String
+  title_not: String
+  title_in: [String]
+  title_not_in: [String]
+  title_contains: String
+  title_not_contains: String
   OR: [GlobalFilter]
   AND: [GlobalFilter]
 }
 
 enum GlobalOrder {
+  title_ASC
+  title_DESC
   sys_id_ASC
   sys_id_DESC
   sys_publishedAt_ASC
@@ -410,23 +457,6 @@ enum GlobalOrder {
   sys_firstPublishedAt_DESC
   sys_publishedVersion_ASC
   sys_publishedVersion_DESC
-}
-
-# [See type definition](https://app.contentful.com/spaces/lvc7wgiuntle/content_types/page)
-type Page implements Entry {
-  sys: Sys!
-  contentfulMetadata: ContentfulMetadata!
-  linkedFrom(allowedLocales: [String]): PageLinkingCollections
-  title(locale: String): String
-}
-
-type PageLinkingCollections {
-  entryCollection(
-    skip: Int = 0
-    limit: Int = 100
-    preview: Boolean
-    locale: String
-  ): EntryCollection
 }
 
 type PageCollection {
