@@ -103,8 +103,9 @@ jobs:
         run: pnpm typecheck
 
       - name: Build storefront
-        run: SERVER_TARGET_NODE=true pnpm build
+        run: pnpm build
         env:
+          SERVER_BUILD_TARGET: 'vercel'
           SHOPIFY_ENDPOINT: ${{ secrets.SHOPIFY_ENDPOINT}}
           SHOPIFY_TOKEN: ${{ secrets.SHOPIFY_TOKEN}}
           CONTENTFUL_ENDPOINT: ${{ secrets.CONTENTFUL_ENDPOINT}}
