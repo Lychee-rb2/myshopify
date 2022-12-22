@@ -104,3 +104,8 @@ jobs:
 
       - name: Build storefront
         run: SERVER_TARGET_NODE=true pnpm build
+        env:
+          SHOPIFY_ENDPOINT: ${{ secrets.SHOPIFY_ENDPOINT}}
+          SHOPIFY_TOKEN: ${{ secrets.SHOPIFY_TOKEN}}
+          CONTENTFUL_ENDPOINT: ${{ secrets.CONTENTFUL_ENDPOINT}}
+          CONTENTFUL_TOKEN: ${{ secrets.CONTENTFUL_TOKEN}}
