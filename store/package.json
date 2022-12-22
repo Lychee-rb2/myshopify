@@ -4,10 +4,11 @@
   "scripts": {
     "build": "remix build",
     "dev": "remix build && run-p \"dev:*\"",
-    "dev:node": "cross-env NODE_ENV=development nodemon --require dotenv/config server.ts --watch server.ts",
+    "dev:node": "cross-env NODE_ENV=development nodemon -r tsconfig-paths/register -r dotenv/config server.ts --watch server.ts",
     "dev:remix": "remix watch",
     "start": "cross-env NODE_ENV=production node server.ts",
-    "typecheck": "tsc -b"
+    "typecheck": "tsc -b",
+    "codegen": "graphql-codegen-esm --config app/shopify/codegen.yml && eslint app/shopify/generated.ts --fix"
   },
   "dependencies": {
     "@remix-run/express": "^1.9.0",
@@ -16,12 +17,21 @@
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "express": "^4.18.2",
+    "graphql-request": "^5.1.0",
+    "graphql-tag": "^2.12.6",
     "isbot": "^3.6.5",
     "morgan": "^1.10.0",
+    "msw": "^0.49.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@graphql-codegen/add": "^3.2.3",
+    "@graphql-codegen/cli": "^2.16.1",
+    "@graphql-codegen/typescript": "^2.8.5",
+    "@graphql-codegen/typescript-graphql-request": "^4.5.8",
+    "@graphql-codegen/typescript-msw": "^1.1.6",
+    "@graphql-codegen/typescript-operations": "^2.5.10",
     "@remix-run/dev": "^1.9.0",
     "@remix-run/eslint-config": "^1.9.0",
     "@remix-run/server-runtime": "^1.9.0",
@@ -31,6 +41,7 @@
     "dotenv": "^16.0.3",
     "eslint": "^8.27.0",
     "express-serve-static-core": "^0.1.1",
+    "graphql": "^16.6.0",
     "nodemon": "^2.0.20",
     "npm-run-all": "^4.1.5",
     "ts-node": "^10.9.1",

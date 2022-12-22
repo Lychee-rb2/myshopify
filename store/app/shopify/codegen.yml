@@ -1,0 +1,22 @@
+schema:
+  - "./app/shopify/schema.graphql"
+documents: app/**/*gql
+emitLegacyCommonJSImports: false
+config: { }
+generates:
+  app/gql/generated.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-msw
+      - typescript-graphql-request
+    config:
+      scalars:
+        Decimal: number
+        Long: number
+        DateTime: string
+        Color: string
+        HTML: string
+        URL: string
+        UnsignedInt64: number
+

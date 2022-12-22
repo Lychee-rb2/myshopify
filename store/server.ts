@@ -4,7 +4,6 @@ import { getContext } from './server/context'
 
 const app = express();
 
-
 app.disable("x-powered-by");
 app.use(
   "/build",
