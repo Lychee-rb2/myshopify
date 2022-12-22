@@ -8,6 +8,7 @@ const serverBuildTarget = ["vercel"].includes(_serverBuildTarget) ? _serverBuild
 const serverMap = {
   vercel: "./server.vercel.ts"
 }
+console.log(serverBuildTarget, serverMap[serverBuildTarget])
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   serverBuildTarget,
