@@ -8,7 +8,7 @@ const serverBuildTarget =
 /** @type {import('@remix-run/dev').AppConfig} */
 module.exports = {
   serverBuildTarget,
-  server: serverBuildTarget === "vercel" ? "./server.vercel.js" : undefined,
+  server: serverBuildTarget === "vercel" ? "./server.vercel.ts" : undefined,
   ignoredRouteFiles: ["**/.*"],
   // appDirectory: "app",
   // assetsBuildDirectory: "public/build",
