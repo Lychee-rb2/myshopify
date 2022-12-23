@@ -3,7 +3,7 @@ import type { RemixNavLinkProps } from "@remix-run/react/dist/components";
 import { Link, NavLink } from "@remix-run/react/dist/components";
 import type { PageFragment } from "~/contentful/generated";
 import { pageResolve } from "~/contentful/resolve";
-import classNames from "classNames";
+import classNames from "classnames";
 import type { SerializeFrom } from "@remix-run/server-runtime";
 import type { PropsWithSerializeFrom } from "~/utils/type";
 

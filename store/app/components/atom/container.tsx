@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 import { Wip } from "~/components/atom/wip";
 
 const OuterContainer = ({

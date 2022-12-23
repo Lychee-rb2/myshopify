@@ -1,6 +1,6 @@
 import type { PropsWithChildren } from "react";
 import { createElement } from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 
 const map = {
   1: "text-4xl md:text-5xl",

@@ -1,7 +1,7 @@
 import type { PropsWithSerializeFrom } from "~/utils/type";
 import type { PeopleFragment } from "~/contentful/generated";
 import type { FC, PropsWithChildren, SVGAttributes } from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 import { typedBoolean } from "~/utils";
 import { SliceContainer } from "~/components/slice/slice-container";
 import type { Slice } from "~/components/slice/slices-resolve";

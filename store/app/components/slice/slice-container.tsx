@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from "react";
-import classNames from "classNames";
+import classNames from "classnames";
 import type { Slice } from "~/components/slice/slices-resolve";
 
 const map: Record<string, string> = {
