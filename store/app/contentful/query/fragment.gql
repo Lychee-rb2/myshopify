@@ -1,0 +1,67 @@
+fragment global on Global{
+    headerMenuCollection(limit: 10) {
+        items {
+            ...page
+        }
+    }
+    footerMenuCollection(limit: 10) {
+        items {
+            ...page
+        }
+    }
+    icon {
+        url
+        title
+    }
+    seo {
+        ...seo
+    }
+}
+fragment sys on Entry {
+    sys {
+        id
+    }
+    __typename
+}
+fragment people on People {
+    ...sys
+    name
+    title
+    job
+    avatar {
+        url
+        title
+    }
+    description {
+        json
+    }
+    socialCollection(limit: 10) {
+        items {
+            ...social
+        }
+    }
+    sliceSpacing
+}
+
+fragment social on Social {
+    ...sys
+    link
+    type
+    label
+}
+
+fragment page on Page {
+    title
+    slug
+    sliceCollection(limit: 10) {
+        items {
+            ...people
+        }
+    }
+}
+
+fragment seo on Seo {
+    title
+    description
+    keyword
+}

@@ -1,20 +1,22 @@
-import type { LoaderArgs } from '@remix-run/server-runtime'
-import { json } from '@remix-run/server-runtime'
-import { useLoaderData } from '@remix-run/react'
+import { pageLoader } from "~/server/page.server";
+import type { LoaderArgs } from "@remix-run/server-runtime";
+import { json } from "@remix-run/server-runtime";
+import { useLoaderData } from "@remix-run/react";
+import { Container } from "~/components/atom/container";
+import { SlicesResolve } from "~/components/slice/slices-resolve";
+import { typedBoolean } from "~/utils";
 
 export const loader = async (args: LoaderArgs) => {
-  return json({
-    shopify: await args.context.shopify.products(),
-    contentful: await args.context.contentful.GlobalCollection()
-  })
-}
-export default function Index() {
-  const { shopify, contentful } = useLoaderData<typeof loader>()
+  const page = await pageLoader(args);
+  return json({ page });
+};
+
+export default function Home() {
+  const { page } = useLoaderData<typeof loader>();
+  const slices = page.sliceCollection?.items.filter(typedBoolean);
   return (
-    <div className="container">
-      <h1>Welcome to Remix</h1>
-      {JSON.stringify(shopify)}
-      {JSON.stringify(contentful)}
-    </div>
+    <Container.Page>
+      <SlicesResolve slices={slices} />
+    </Container.Page>
   );
 }

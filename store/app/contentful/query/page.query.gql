@@ -1,0 +1,7 @@
+query page($slug:String){
+    pageCollection(limit:1,where:{slug:$slug}){
+        items {
+            ...page
+        }
+    }
+}
