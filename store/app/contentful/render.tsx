@@ -1,6 +1,5 @@
 import type { Options as RendererOptions } from "@contentful/rich-text-react-renderer";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
-import { Link } from "~/components/atom/navLink";
 import { Heading } from "~/components/atom/heading";
 import { Paragraph } from "~/components/atom/paragraph";
 
@@ -21,9 +20,14 @@ export function renderPageOptions({
       // External link ---- hyperlink
       [INLINES.HYPERLINK]: (node, _children) => (
         <span>
-          <Link className="underline" href={node.data.uri} target="_blank">
+          <a
+            className="underline"
+            href={node.data.uri}
+            target="_blank"
+            rel="noreferrer"
+          >
             {_children}
-          </Link>
+          </a>
         </span>
       ),
       [BLOCKS.DOCUMENT]: (node, _children) => {

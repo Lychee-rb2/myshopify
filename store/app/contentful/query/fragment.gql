@@ -16,6 +16,9 @@ fragment global on Global{
     seo {
         ...seo
     }
+    serverPolicy{
+        json
+    }
 }
 fragment sys on Entry {
     sys {

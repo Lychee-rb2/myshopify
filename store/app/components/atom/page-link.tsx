@@ -1,15 +1,16 @@
-import type { PropsWithChildren, PropsWithoutRef } from "react";
+import type { PropsWithoutRef } from "react";
 import type { RemixNavLinkProps } from "@remix-run/react/dist/components";
 import { Link, NavLink } from "@remix-run/react/dist/components";
 import type { PageFragment } from "~/contentful/generated";
 import { pageResolve } from "~/contentful/resolve";
 import classNames from "classNames";
 import type { SerializeFrom } from "@remix-run/server-runtime";
+import type { PropsWithSerializeFrom } from "~/utils/type";
 
 export const PageLink = ({
   page,
   children,
-}: PropsWithChildren<{ page: PageFragment }>) => {
+}: PropsWithSerializeFrom<{ page: PageFragment }>) => {
   const href = pageResolve(page);
   return href ? (
     <Link to={href} className="transition hover:text-orange-400">

@@ -284,6 +284,7 @@ export type Global = Entry & {
   icon?: Maybe<Asset>;
   linkedFrom?: Maybe<GlobalLinkingCollections>;
   seo?: Maybe<Seo>;
+  serverPolicy?: Maybe<GlobalServerPolicy>;
   sys: Sys;
   title?: Maybe<Scalars['String']>;
 };
@@ -322,6 +323,11 @@ export type GlobalSeoArgs = {
 };
 
 
+export type GlobalServerPolicyArgs = {
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+
 export type GlobalTitleArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
@@ -343,6 +349,9 @@ export type GlobalFilter = {
   icon_exists?: InputMaybe<Scalars['Boolean']>;
   seo?: InputMaybe<CfSeoNestedFilter>;
   seo_exists?: InputMaybe<Scalars['Boolean']>;
+  serverPolicy_contains?: InputMaybe<Scalars['String']>;
+  serverPolicy_exists?: InputMaybe<Scalars['Boolean']>;
+  serverPolicy_not_contains?: InputMaybe<Scalars['String']>;
   sys?: InputMaybe<SysFilter>;
   title?: InputMaybe<Scalars['String']>;
   title_contains?: InputMaybe<Scalars['String']>;
@@ -394,6 +403,31 @@ export enum GlobalOrder {
   TitleAsc = 'title_ASC',
   TitleDesc = 'title_DESC'
 }
+
+export type GlobalServerPolicy = {
+  __typename?: 'GlobalServerPolicy';
+  json: Scalars['JSON'];
+  links: GlobalServerPolicyLinks;
+};
+
+export type GlobalServerPolicyAssets = {
+  __typename?: 'GlobalServerPolicyAssets';
+  block: Array<Maybe<Asset>>;
+  hyperlink: Array<Maybe<Asset>>;
+};
+
+export type GlobalServerPolicyEntries = {
+  __typename?: 'GlobalServerPolicyEntries';
+  block: Array<Maybe<Entry>>;
+  hyperlink: Array<Maybe<Entry>>;
+  inline: Array<Maybe<Entry>>;
+};
+
+export type GlobalServerPolicyLinks = {
+  __typename?: 'GlobalServerPolicyLinks';
+  assets: GlobalServerPolicyAssets;
+  entries: GlobalServerPolicyEntries;
+};
 
 export enum ImageFormat {
   Avif = 'AVIF',
@@ -1440,7 +1474,7 @@ export type CfSeoNestedFilter = {
   title_not_in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-export type GlobalFragment = { __typename?: 'Global', headerMenuCollection?: { __typename?: 'GlobalHeaderMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, footerMenuCollection?: { __typename?: 'GlobalFooterMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, icon?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keyword?: Array<string | null> | null } | null };
+export type GlobalFragment = { __typename?: 'Global', headerMenuCollection?: { __typename?: 'GlobalHeaderMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, footerMenuCollection?: { __typename?: 'GlobalFooterMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, icon?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keyword?: Array<string | null> | null } | null, serverPolicy?: { __typename?: 'GlobalServerPolicy', json: any } | null };
 
 type Sys_Global_Fragment = { __typename: 'Global', sys: { __typename?: 'Sys', id: string } };
 
@@ -1469,7 +1503,7 @@ export type SeoFragment = { __typename?: 'Seo', title?: string | null, descripti
 export type GlobalCollectionQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GlobalCollectionQuery = { __typename?: 'Query', globalCollection?: { __typename?: 'GlobalCollection', items: Array<{ __typename?: 'Global', headerMenuCollection?: { __typename?: 'GlobalHeaderMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, footerMenuCollection?: { __typename?: 'GlobalFooterMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, icon?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keyword?: Array<string | null> | null } | null } | null> } | null };
+export type GlobalCollectionQuery = { __typename?: 'Query', globalCollection?: { __typename?: 'GlobalCollection', items: Array<{ __typename?: 'Global', headerMenuCollection?: { __typename?: 'GlobalHeaderMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, footerMenuCollection?: { __typename?: 'GlobalFooterMenuCollection', items: Array<{ __typename?: 'Page', title?: string | null, slug?: string | null, sliceCollection?: { __typename?: 'PageSliceCollection', items: Array<{ __typename: 'People', name?: string | null, title?: string | null, job?: string | null, sliceSpacing?: string | null, avatar?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, description?: { __typename?: 'PeopleDescription', json: any } | null, socialCollection?: { __typename?: 'PeopleSocialCollection', items: Array<{ __typename: 'Social', link?: string | null, type?: string | null, label?: string | null, sys: { __typename?: 'Sys', id: string } } | null> } | null, sys: { __typename?: 'Sys', id: string } } | null> } | null } | null> } | null, icon?: { __typename?: 'Asset', url?: string | null, title?: string | null } | null, seo?: { __typename?: 'Seo', title?: string | null, description?: string | null, keyword?: Array<string | null> | null } | null, serverPolicy?: { __typename?: 'GlobalServerPolicy', json: any } | null } | null> } | null };
 
 export type PageQueryVariables = Exact<{
   slug?: InputMaybe<Scalars['String']>;
@@ -1586,6 +1620,9 @@ export const GlobalFragmentDoc = gql`
   }
   seo {
     ...seo
+  }
+  serverPolicy {
+    json
   }
 }
     ${PageFragmentDoc}
