@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { typedBoolean } from "~/utils";
 import { SliceContainer } from "~/components/slice/slice-container";
 import type { Slice } from "~/components/slice/slices-resolve";
+import { useSliceCtx } from "~/components/slice/slices-resolve";
 import { GithubIcon } from "~/components/icon/github";
 import { MailIcon } from "~/components/icon/mail";
 import { PhoneIcon } from "~/components/icon/phone";
@@ -55,17 +56,19 @@ const SocialLink = ({
 };
 export const PeopleSlice = ({
   slice,
-  slices,
-}: PropsWithSerializeFrom<{ slice: PeopleFragment; slices: Slice[] }>) => {
-  const index = slices
-    .filter((i) => i.__typename === "People")
-    .findIndex((i) => i.sys.id === slice.sys.id);
-  const isOdd = slices[index - 1]?.__typename === "People";
+  index,
+}: PropsWithSerializeFrom<{
+  slice: PeopleFragment;
+  slices: Slice[];
+  index: number;
+}>) => {
+  const { peopleSliceLayout } = useSliceCtx();
+  const isRight = peopleSliceLayout[index] === "right";
   return (
     <SliceContainer
       spacing={slice.sliceSpacing}
       className={classNames("flex flex-wrap md:-mx-2", {
-        "flex-row-reverse": !isOdd,
+        "flex-row-reverse": !isRight,
       })}
     >
       <div className="w-full md:w-1/2 md:px-2">
@@ -78,14 +81,14 @@ export const PeopleSlice = ({
                 alt={slice.avatar?.title || slice.name || ""}
                 className={classNames(
                   "aspect-square rounded-2xl bg-zinc-100 object-cover bg-zinc-800 md:rotate-3 w-full h-full",
-                  isOdd ? "md:-rotate-3" : ""
+                  isRight ? "md:-rotate-3" : ""
                 )}
               />
             </div>
           </div>
           <div
             className={classNames(
-              isOdd ? "md:justify-end" : "",
+              isRight ? "md:justify-end" : "",
               "w-2/3 md:w-full px-4 md:px-0 flex"
             )}
           >
