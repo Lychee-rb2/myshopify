@@ -1,10 +1,9 @@
-import type { PropsWithSerializeFrom } from "~/utils/type";
 import type { PeopleFragment } from "~/contentful/generated";
 import type { FC, PropsWithChildren, SVGAttributes } from "react";
 import classNames from "classnames";
 import { typedBoolean } from "~/utils";
 import { SliceContainer } from "~/components/slice/slice-container";
-import type { Slice } from "~/components/slice/slices-resolve";
+import type { SliceProps } from "~/components/slice/slices-resolve";
 import { useSliceCtx } from "~/components/slice/slices-resolve";
 import { GithubIcon } from "~/components/icon/github";
 import { MailIcon } from "~/components/icon/mail";
@@ -54,14 +53,7 @@ const SocialLink = ({
     </li>
   );
 };
-export const PeopleSlice = ({
-  slice,
-  index,
-}: PropsWithSerializeFrom<{
-  slice: PeopleFragment;
-  slices: Slice[];
-  index: number;
-}>) => {
+export const PeopleSlice = ({ slice, index }: SliceProps<PeopleFragment>) => {
   const { peopleSliceLayout } = useSliceCtx();
   const isRight = peopleSliceLayout[index] === "right";
   return (

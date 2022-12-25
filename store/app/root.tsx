@@ -13,6 +13,7 @@ import type { loader } from "~/components/root/root.server";
 import { GlobalProvider } from "~/hooks/context/useGlobal";
 import { Layout, meta } from "~/components/root/layout";
 import { LocaleProvider } from "~/hooks/context/useLocale";
+import { AnimatePresence } from "framer-motion";
 
 export { meta };
 export const links: LinksFunction = () => [
@@ -33,7 +34,9 @@ export default function App() {
         <LocaleProvider locale={locale}>
           <GlobalProvider global={global}>
             <Layout>
-              <Outlet />
+              <AnimatePresence mode="wait">
+                <Outlet />
+              </AnimatePresence>
             </Layout>
           </GlobalProvider>
         </LocaleProvider>
