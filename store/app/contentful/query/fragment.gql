@@ -52,13 +52,34 @@ fragment social on Social {
     type
     label
 }
-
+fragment commonSlice on CommonSlice {
+    ...sys
+    title
+    description {
+        json
+    }
+    imageCollection(limit: 10){
+        items {
+            url
+            title
+        }
+    }
+    referenceCollection(limit: 10){
+        items {
+            ...people
+        }
+    }
+    type
+    sliceSpacing
+}
 fragment page on Page {
     title
     slug
     sliceCollection(limit: 10) {
         items {
             ...people
+            ...commonSlice
+
         }
     }
 }
