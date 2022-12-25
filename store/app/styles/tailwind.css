@@ -1248,6 +1248,10 @@ select {
   text-align: center;
 }
 
+.indent-8 {
+  text-indent: 2rem;
+}
+
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;

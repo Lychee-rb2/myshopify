@@ -15,7 +15,7 @@ const Rich = ({
 }>) => {
   if (!json) return null;
   return (
-    <article className={classNames(className, "space-y-4")}>
+    <article className={classNames(className, "space-y-4 indent-8")}>
       {documentToReactComponents(json, renderPageOptions({ onlyParagraph }))}
     </article>
   );
