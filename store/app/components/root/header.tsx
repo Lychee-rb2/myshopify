@@ -119,11 +119,11 @@ const MobileNavigation = (props: PropsWithChildren<{ className: string }>) => {
 const NavItem = ({ page }: PropsWithSerializeFrom<{ page: PageFragment }>) => {
   return (
     <li className="relative block px-3 py-2 transition">
-      <PageNavLink page={page}>
+      <PageNavLink page={page} className="group">
         {({ isActive }) => (
           <>
             {isActive && (
-              <span className="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-orange-400/0 via-orange-400/40 to-orange-400/0" />
+              <span className="group-hover:opacity-0 absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-orange-400/0 via-orange-400/40 to-orange-400/0" />
             )}
           </>
         )}
