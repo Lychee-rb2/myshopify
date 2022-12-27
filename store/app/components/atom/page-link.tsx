@@ -6,19 +6,30 @@ import { pageResolve } from "~/contentful/resolve";
 import classNames from "classnames";
 import type { SerializeFrom } from "@remix-run/server-runtime";
 import type { PropsWithSerializeFrom } from "~/utils/type";
+import { motion } from "framer-motion";
 
 export const PageLink = ({
   page,
   children,
-}: PropsWithSerializeFrom<{ page: PageFragment }>) => {
+  className,
+}: PropsWithSerializeFrom<{ page: PageFragment; className?: string }>) => {
   const href = pageResolve(page);
   return href ? (
-    <Link to={href} className="transition hover:text-orange-400">
-      {page.title}
-      {children}
+    <Link
+      to={href}
+      className={classNames(className, "transition hover:text-orange-400")}
+    >
+      <motion.span
+        className="inline-block"
+        whileHover={{ scale: 1.2 }}
+        whileTap={{ scale: 0.9 }}
+      >
+        {page.title}
+        {children}
+      </motion.span>
     </Link>
   ) : (
-    <span>
+    <span className={className}>
       {page.title}
       {children}
     </span>
@@ -29,10 +40,12 @@ export const PageNavLink = ({
   page,
   children,
   onclick,
+  className,
 }: PropsWithoutRef<{
   page: SerializeFrom<PageFragment>;
   children?: RemixNavLinkProps["children"];
   onclick?: RemixNavLinkProps["onClick"];
+  className?: string;
 }>) => {
   const href = pageResolve(page);
   return href ? (
@@ -41,20 +54,25 @@ export const PageNavLink = ({
       onClick={onclick}
       className={({ isActive }) =>
         classNames(
+          className,
           isActive ? "text-orange-400" : "hover:text-orange-400",
           "transition hover:text-orange-400"
         )
       }
     >
       {(props) => (
-        <>
+        <motion.span
+          className="inline-block"
+          whileHover={{ scale: 1.2 }}
+          whileTap={{ scale: 0.9 }}
+        >
           {page.title}
           {typeof children === "function" ? children(props) : children}
-        </>
+        </motion.span>
       )}
     </NavLink>
   ) : (
-    <span>
+    <span className={className}>
       <>
         {page.title}
         {typeof children === "function"
